@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Calculator</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #7ee8fa, #eec0c6);
+        font-family: "Poppins", sans-serif;
+      }
+
+      .calculator {
+        background: #fff;
+        width: 90%;
+        max-width: 400px;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 2px solid #eee;
+        outline: none;
+        font-size: 1rem;
+      }
+
+      input:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 5px rgba(108, 99, 255, 0.4);
+      }
+
+      .buttons button {
+        margin: 10px 8px;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        background: #6c63ff;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .buttons button:hover {
+        background: #4b43c1;
+        transform: scale(1.1);
+      }
+
+      .clear-btn {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #00b894;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Smart Calculator</h2>
+      <input id="num1" type="number" placeholder="Enter first number" />
+      <input id="num2" type="number" placeholder="Enter second number" />
+
+      <div class="buttons">
+        <button onclick="calculate('+')">➕</button>
+        <button onclick="calculate('-')">➖</button>
+        <button onclick="calculate('*')">✖</button>
+        <button onclick="calculate('/')">➗</button>
+      </div>
+
+      <button class="clear-btn" onclick="clearInputs()">Clear</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function calculate(operator) {
+        const num1 = parseFloat(document.getElementById("num1").value);
+        const num2 = parseFloat(document.getElementById("num2").value);
+        const resultElement = document.getElementById("result");
+        let result;
+
+        if (isNaN(num1) || isNaN(num2)) {
+          resultElement.style.color = "#e63950";
+          resultElement.textContent = "⚠️ Please enter both numbers!";
+          return;
+        }
+
+        switch (operator) {
+          case "+":
+            result = num1 + num2;
+            break;
+          case "-":
+            result = num1 - num2;
+            break;
+          case "*":
+            result = num1 * num2;
+            break;
+          case "/":
+            if (num2 === 0) {
+              resultElement.style.color = "#e63950";
+              resultElement.textContent = "🚫 Cannot divide by zero!";
+              return;
+            }
+            result = num1 / num2;
+            break;
+          default:
+            resultElement.style.color = "#e63950";
+            resultElement.textContent = "❌ Invalid operation!";
+            return;
+        }
+
+        resultElement.style.color = "#00b894";
+        resultElement.textContent = `✅ Result: ${result}`;
+      }
+
+      function clearInputs() {
+        document.getElementById("num1").value = "";
+        document.getElementById("num2").value = "";
+        document.getElementById("result").textContent = "";
+      }
+    </script>
+  </body>
+</html>
